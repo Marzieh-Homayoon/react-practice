@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Card from "./UI/Card";
+import Input from "./UI/Input";
+import Button from "./UI/Button";
+import './UI/Button.css';
 
-const Form = (props) => {
+
+const Form = () => {
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [isValidFirstName, setIsValidFirstName] = useState(false);
   const [enteredLastName, setEnteredLastName] = useState("");
@@ -10,35 +14,28 @@ const Form = (props) => {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const firstNameChangeHandler = (event) => {
+  const validateText = (value) => {
     const regName = /^([a-zA-Z]+)( [a-zA-Z]+)*( )*$/;
-    if (regName.test(event.target.value)) {
-      setEnteredFirstName(event.target.value);
-      setIsValidFirstName(true);
-    }else{
-        setIsValidFirstName(false)
-    }
+    return regName.test(value);
+  };
+
+  const firstNameChangeHandler = (event) => {
+    setEnteredFirstName(event.target.value);
+    const isValid = validateText(event.target.value);
+    setIsValidFirstName(isValid);
   };
 
   const lastNameChangeHandler = (event) => {
-    const regName = /^[a-zA-Z]+( [a-zA-Z]+)*( )*$/;
-    if (regName.test(event.target.value)) {
-      setEnteredLastName(event.target.value);
-      setIsValidLastName(true);
-    }else {
-        setIsValidLastName(false)
-    }
+    setEnteredLastName(event.target.value);
+    const isValid = validateText(event.target.value);
+    setIsValidLastName(isValid);
   };
 
   const emailChangeHandler = (event) => {
+    setEnteredEmail(event.target.value);
     // regular expression from https://stackoverflow.com/questions/46155/whats-the-best-way-to-validate-an-email-address-in-javascript
     const regEmail = /\S+@\S+\.\S+/; ///^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (regEmail.test(event.target.value)) {
-      setEnteredEmail(event.target.value);
-      setIsValidEmail(true);
-    }else{
-        setIsValidEmail(false)
-    }
+    setIsValidEmail(regEmail.test(event.target.value));
   };
 
   const submitHandler = (event) => {
@@ -47,38 +44,42 @@ const Form = (props) => {
   };
 
   const formValidation = () => {
-    if (isValidFirstName === true && isValidLastName === true && isValidEmail === true) {
-        setIsDisabled(false);
+    if (
+      isValidFirstName === true &&
+      isValidLastName === true &&
+      isValidEmail === true
+    ) {
+      setIsDisabled(false);
     } else {
-        setIsDisabled(true)
+      setIsDisabled(true);
     }
   };
 
   return (
     <Card>
-      <form onSubmit={submitHandler} onChange={formValidation}>
+      <form  onSubmit={submitHandler} onChange={formValidation}>
         <h2>Please submit your details</h2>
-        <input
+        <Input
           type="text"
           placeholder="First Name"
-          //value={enteredFirstName}
+          value={enteredFirstName}
           onChange={firstNameChangeHandler}
         />
-        <input
+        <Input
           type="text"
           placeholder="Last Name"
-          //value={enteredLastName}
+          value={enteredLastName}
           onChange={lastNameChangeHandler}
         />
-        <input
+        <Input
           type="email"
           placeholder="Email"
-          //value={enteredEmail}
+          value={enteredEmail}
           onChange={emailChangeHandler}
         />
-        <button type="subimt" disabled={isDisabled}>
+        <Button type="subimt" disabled={isDisabled}>
           Submit
-        </button>
+        </Button>
       </form>
     </Card>
   );
