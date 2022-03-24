@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "develop": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest react-scripts test --env=jsdom"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "babel-loader": "^8.2.3",
@@ -22,13 +25,21 @@
     "webpack-cli": "^4.9.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/plugin-syntax-jsx": "^7.16.7",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
+    "babel-jest": "^27.5.1",
+    "babel-preset-jest": "^27.5.1",
     "css-loader": "^6.7.1",
+    "enzyme-adapter-react-17-updated": "^1.0.2",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.5.1",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "mini-css-extract-plugin": "^2.6.0",
     "postcss": "^8.4.11",
     "postcss-loader": "^6.2.1",
+    "react-test-renderer": "^17.0.2",
     "style-loader": "^3.3.1",
     "webpack-dev-server": "^4.7.4"
   }
